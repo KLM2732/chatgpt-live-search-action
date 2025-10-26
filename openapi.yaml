@@ -6,7 +6,7 @@ info:
     An Action for ChatGPT that performs live web search, fetches pages,
     extracts readable text, and synthesizes a concise answer with citations.
 servers:
-  - url: https://YOUR-DEPLOYED-URL  # replace with your domain
+  - url: https://choosier-littlish-carline.ngrok-free.dev
 paths:
   /answer:
     post:
