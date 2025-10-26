@@ -1,0 +1,79 @@
+openapi: 3.1.0
+info:
+  title: Live Web Search Action
+  version: "1.0.0"
+  description: >
+    An Action for ChatGPT that performs live web search, fetches pages,
+    extracts readable text, and synthesizes a concise answer with citations.
+servers:
+  - url: https://YOUR-DEPLOYED-URL  # replace with your domain
+paths:
+  /answer:
+    post:
+      operationId: answer
+      summary: Search the web and return a summarized answer with sources
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [query]
+              properties:
+                query:
+                  type: string
+                  description: The user's question or search query.
+                max_results:
+                  type: integer
+                  default: 6
+                  minimum: 2
+                  maximum: 10
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [answer, sources]
+                properties:
+                  answer:
+                    type: string
+                    description: A concise, cited answer.
+                  sources:
+                    type: array
+                    items:
+                      type: object
+                      required: [title, url]
+                      properties:
+                        title:
+                          type: string
+                        url:
+                          type: string
+        "4XX":
+          description: Client error
+        "5XX":
+          description: Server error
+  /healthz:
+    get:
+      operationId: healthz
+      summary: Health check
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Send as: Bearer YOUR_SECRET_TOKEN'
