@@ -6,7 +6,7 @@ info:
     An Action for ChatGPT that performs live web search, fetches pages,
     extracts readable text, and synthesizes a concise answer with citations.
 servers:
-  - url: https://choosier-littlish-carline.ngrok-free.dev
+  - url: https://raw.githubusercontent.com/KLM2732/chatgpt-live-search-action/main/openapi.yaml
 
 paths:
   /answer:
