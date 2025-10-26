@@ -5,8 +5,9 @@ info:
   description: >
     An Action for ChatGPT that performs live web search, fetches pages,
     extracts readable text, and synthesizes a concise answer with citations.
+
 servers:
-  - url: https://raw.githubusercontent.com/KLM2732/chatgpt-live-search-action/main/openapi.yaml
+  - url: https://choosier-littlish-carline.ngrok-free.dev
 
 paths:
   /answer:
@@ -53,10 +54,13 @@ paths:
                           type: string
                         url:
                           type: string
+        "401":
+          description: Unauthorized (missing/invalid Authorization header)
         "4XX":
           description: Client error
         "5XX":
           description: Server error
+
   /healthz:
     get:
       operationId: healthz
@@ -71,6 +75,7 @@ paths:
                 properties:
                   ok:
                     type: boolean
+
 components:
   securitySchemes:
     ApiKeyAuth:
@@ -78,3 +83,4 @@ components:
       in: header
       name: Authorization
       description: 'Send as: Bearer YOUR_SECRET_TOKEN'
+
